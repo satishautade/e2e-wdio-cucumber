@@ -1,0 +1,22 @@
+{
+  "name": "e2e-skeleton",
+  "version": "0.0.1",
+  "description": "The reusable E2E test framework with API and Browser automation capabilities",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Satish Autade",
+  "license": "MIT",
+  "dependencies": {
+    "@wdio/cli": "^5.15.2",
+    "cucumber": "^6.0.2"
+  },
+  "devDependencies": {
+    "@wdio/cucumber-framework": "^5.15.1",
+    "@wdio/local-runner": "^5.15.2",
+    "@wdio/spec-reporter": "^5.15.2",
+    "chromedriver": "^77.0.0",
+    "wdio-chromedriver-service": "^5.0.2"
+  }
+}
