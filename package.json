@@ -4,7 +4,7 @@
   "description": "The reusable E2E test framework with API and Browser automation capabilities",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "./node_modules/.bin/wdio wdio.conf.js"
   },
   "author": "Satish Autade",
   "license": "MIT",
