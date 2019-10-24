@@ -1,11 +1,13 @@
-export default class Page {
-  
+
+// module.exports = class Page {
+export default class Page {  
+
   constructor(){
-    this.title = "Google";
+    this.title = "Google"
   }
 
   open(path){
-    browser.url(path);
+    browser.url(path)
   }
 
 }
