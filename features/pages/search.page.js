@@ -1,18 +1,18 @@
 import Page from './page';
 
 class SearchPage extends Page {
-  // module.exports = class SearchPage extends Page {
-  get searchInput() { return $('input[name="q"]')  }
-  get searchButton() { return $('input[name="btnK"]') }
+   get searchInput() { return $('#search_form_input_homepage')  }
+   get searchButton() { return $('#search_button_homepage') }
+   get results(){ return $('form[role="search"]')}
 
-  async open(){
-    await super.open('/')
+  open(){
+    super.open('/')
   }
 
-  async searchFor(text){
-    // this.searchInput.clear()
-    await this.searchInput.setValue(text)
-    await this.searchButton.click()
+  searchFor(text){
+    this.searchInput.setValue(text)    
+    // There is a problem with googel
+    this.searchButton.click()
   }
 
 }
