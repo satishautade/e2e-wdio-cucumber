@@ -1,4 +1,3 @@
-const config = require(require.resolve('../../wdio.conf.js')).config;
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
 import  SearchPage from '../pages/search.page';

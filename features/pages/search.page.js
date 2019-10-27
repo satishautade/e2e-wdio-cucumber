@@ -11,7 +11,7 @@ class SearchPage extends Page {
 
   searchFor(text){
     this.searchInput.setValue(text)    
-    // There is a problem with googel
+    // There is a problem with google search button click
     this.searchButton.click()
   }
 
