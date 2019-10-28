@@ -13,11 +13,10 @@
   "author": "Satish Autade",
   "license": "MIT",
   "dependencies": {
+    "@wdio/allure-reporter": "^5.15.3",
     "@wdio/cli": "^5.15.2",
     "babel-register": "^6.26.0",
-    "cucumber": "^6.0.2"
-  },
-  "devDependencies": {
+    "cucumber": "^6.0.2",
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
