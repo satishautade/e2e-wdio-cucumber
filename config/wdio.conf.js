@@ -1,6 +1,15 @@
 const getCapabilitiesFor = require('./browser.conf');
+const { getConfigFor } = require('./app.env');
+var applicationName = process.env.APP || 'ddg';
+var environment = process.env.ENV || 'test';
+const appConfig = getConfigFor(applicationName, environment);
+
+console.log("APPCONFIG => " + JSON.stringify(appConfig));
 
 exports.config = {
+
+  // appConfig: getConfigFor('ddg', 'prod'),
+  
   //
   // ====================
   // Runner Configuration
@@ -104,8 +113,9 @@ exports.config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: 'https://duckduckgo.com/',
+  // baseUrl: 'https://duckduckgo.com/',
   //
+    baseUrl: appConfig.base_url,
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
   //
