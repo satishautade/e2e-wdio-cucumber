@@ -8,9 +8,9 @@ pipeline {
   }
 
   parameters {
-    choice(name: 'APP', choices:"DuckDuckGo\nGoogle\n" description: "Which Application [APP]: ")
-    choice(name: 'ENV', choices:"test\nprod\n", description: 'Which environment [ENV]: ')
-    choice(name: 'BROWSER', choices: "Chrome\nFirefox\n", description: 'Choose BROWSER : ')
+    choice(name: 'APP', choices:"DuckDuckGo\nGoogle\n", description:'Which Application [APP]: ')
+    choice(name: 'ENV', choices:"test\nprod\n", description:'Which environment [ENV]: ')
+    choice(name: 'BROWSER', choices: "Chrome\nFirefox\n", description:'Choose BROWSER : ')
   }
   environment {
     APP = "${params.APP}"
