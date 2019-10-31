@@ -8,7 +8,7 @@
     "clean": "rimraf allure-reports/ allure-report/",
     "pretest": "npm run clean",
     "test": "./node_modules/.bin/wdio config/wdio.conf.js",
-    "reports": "./node_modules/.bin/allure generate ./allure-reports && allure open"
+    "reports": "./node_modules/.bin/allure generate ./allure-reports"
   },
   "author": "Satish Autade",
   "license": "MIT",
