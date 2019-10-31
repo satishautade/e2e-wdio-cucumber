@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  testnet:
+    driver: bridge
+
+services:
+  selenium-browser:
+    image: selenium/standalone-${BROWSER}:latest
+    working_dir: /code
+    volumes:
+      - .:/code:rw
+      - /dev/shm:/dev/shm
+    networks:
+      testnet: {}
+  tests:
+    image: node:12.13.0
+    networks:
+      testnet: {}
+    environment:
+      - APP=${APP}
+      - ENV=${ENV}
+      - BROWSER=${BROWSER}
+      - REMOTE_HOST=selenium-browser
+    command:  >
+      sh -c " ./wait-for-it.sh selenium-browser:4444 &&
+             npm install &&
+             npm test"
+    working_dir: /code
+    volumes:
+      - .:/code:rw
+    depends_on:
+      - selenium-browser
+
+# Example Run
+# APP=ddg ENV=test BROWSER=chrome docker-compose up

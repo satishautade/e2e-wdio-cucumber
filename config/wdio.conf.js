@@ -1,15 +1,16 @@
 const getCapabilitiesFor = require('./browser.conf');
 const { getConfigFor } = require('./app.env');
+
+// Load Application config using command line args APP and ENV
 var applicationName = process.env.APP || 'ddg';
 var environment = process.env.ENV || 'test';
 const appConfig = getConfigFor(applicationName, environment);
-
-console.log("APPCONFIG => " + JSON.stringify(appConfig));
+// console.log("APPCONFIG => " + JSON.stringify(appConfig));
 
 exports.config = {
 
   // appConfig: getConfigFor('ddg', 'prod'),
-  
+
   //
   // ====================
   // Runner Configuration
@@ -18,11 +19,11 @@ exports.config = {
   // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
   // on a remote machine).
   runner: 'local',
-  //
+  //fg
   // Override default path ('/wd/hub') for chromedriver service.
   path: '/wd/hub',
-  hostname: 'localhost',
-  port:4444,
+  hostname: process.env.REMOTE_HOST || 'localhost',
+  port: 4444,
   //
   // ==================
   // Specify Test Files
@@ -115,7 +116,7 @@ exports.config = {
   // gets prepended directly.
   // baseUrl: 'https://duckduckgo.com/',
   //
-    baseUrl: appConfig.base_url,
+  baseUrl: appConfig.base_url,
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
   //
@@ -136,8 +137,8 @@ exports.config = {
   //   "--disable-gpu"
   // ],
 
-  services: ['selenium-standalone'],
-  
+  services: process.env.REMOTE_HOST ? [] : ['selenium-standalone'],
+
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
   // see also: https://webdriver.io/docs/frameworks.html

@@ -1,47 +1,30 @@
-let config = require('./wdio.conf');
+const getConfigForDuckDuckGo = require('./ddg.env')
+let appConfig = {}
 
 function getConfigFor(applicationName, environment) {
 
   switch(applicationName.toLowerCase()) {
 
     case 'ddg': 
-      console.log("Returning config for application => " + applicationName);
-      switch(environment.toLowerCase()) {
-        case 'test':
-          config.base_url = "https://duckduckgo.com"
-          config.username = "TestingDuck"
-          config.password = "Password"
-          console.log("Generating config for ENV => " + environment);
-          console.log("CONFIG OBJ => " + JSON.stringify(config));
-          return config;
-
-        case 'prod':
-          config.base_url = "https://duckduckgo.com/"
-          config.username = "ProductionDuck"
-          config.password = "Password"
-          console.log("CONFIG OBJ => " + JSON.stringify(config));
-          console.log("Generating config for ENV => " + environment);
-          return config;
-        
-        default:
-          throw Error(`ENV => ${environment} is NOT defined for APP => ${applicationName}`);
-      }  
-      break;
+      console.log("Returning config for application => " + applicationName)
+      appConfig = getConfigForDuckDuckGo(environment);
+      return appConfig
+      // break;
 
     case 'google': 
-      config.base_url= "https://google.com"
-      console.log("Returning config for application => " + applicationName);
-      return config;
+      console.log("Returning config for application => " + applicationName)
+      appConfig.base_url= "https://google.com"
+      return appConfig
       
     default:
-      console.log("No matching application found for name => " + applicationName);
+      console.log("No matching application found for name => " + applicationName)
   }
 }
-
+  
 module.exports = {
   getConfigFor,
-  config,
+  appConfig
 }
-
-// getConfigFor('ddg', 'prod');
+// Uncomment following to debug this file and run > node config/app.env.js
+// var result = getConfigFor('ddg', 'test');
 // console.log(JSON.stringify(result));
