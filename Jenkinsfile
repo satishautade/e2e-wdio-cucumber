@@ -41,7 +41,7 @@ pipeline {
       }
       post {
         always {
-          archiveArtifacts artifacts: 'allure-reports', fingerprint: true
+          archiveArtifacts artifacts: 'allure-reports/*.xml', fingerprint: true
         }
       }
     }
