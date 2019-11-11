@@ -1,19 +1,16 @@
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
-import  MobiPage from '../../pages/mobi/mobi.page';
+import MobiPage from '../../pages/mobi/mobi.page';
+import  MobiLoginPage from '../../pages/mobi/mobi.login.page';
 
 Given('I am on Patient Login page', ()=> {
   console.log("Current capabilities => " + JSON.stringify(browser.capabilities))
-  MobiPage.acceptDataPolicyTerms()
-
 });
 
-When("I login as user {string}", (username)=> {
-  console.log("USERNAME => " + username);
+When("I login as user {string} with password {string}", (username, password)=> {
+  MobiLoginPage.loginAs(username, password)
 });
 
 Then('My prescriptions are displayed', ()=> {
-  var resultsTerm = 'MedAdvisor Mobile'
-  assert.ok(browser.getTitle().includes(resultsTerm),
-   "ResultPage's title does not containt searchTerm => " + resultsTerm)
+  MobiLoginPage.verifyLandingScreen()
 });
