@@ -1,4 +1,5 @@
 const getConfigForDuckDuckGo = require('./ddg.env')
+const getConfigForMobi = require('./mobi.env')
 let appConfig = {}
 
 function getConfigFor(applicationName, environment) {
@@ -15,7 +16,12 @@ function getConfigFor(applicationName, environment) {
       console.log("Returning config for application => " + applicationName)
       appConfig.base_url= "https://google.com"
       return appConfig
-      
+    
+    case 'mobi': 
+      console.log("Returning config for application => " + applicationName)
+      appConfig = getConfigForMobi(environment)
+      return appConfig
+
     default:
       console.log("No matching application found for name => " + applicationName)
   }

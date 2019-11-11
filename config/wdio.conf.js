@@ -1,11 +1,39 @@
 const getCapabilitiesFor = require('./browser.conf');
 const { getConfigFor } = require('./app.env');
 
-// Load Application config using command line args APP and ENV
-var applicationName = process.env.APP || 'ddg';
-var environment = process.env.ENV || 'test';
+// Load Application config using command line args 
+
+//APP - application name [ddg, mobi]
+var applicationName = (process.env.APP || 'ddg').toLowerCase();
+console.log("applicationName  => " + applicationName);
+
+//ENV - application environment to target [dev, test, prod]
+var environment = (process.env.ENV || 'test').toLowerCase();
+console.log("environment => " + environment);
+
+//BROWSER
+var browserName = (process.env.BROWSER || 'chrome').toLowerCase();
+console.log("browserName => " + browserName);
+
+//FEATURE_DIR - directory name inside Features to target [search, mobi]
+var specsPath = `./features/${process.env.FEATURE_DIR || 'search'}/*.feature`;
+console.log("specsPath => " + specsPath);
+
+//TAGS - Tags to be run [@Search, @Mobi]
+var tagsToRun =  process.env.TAGS || '@Search';
+console.log("tagsToRun => " + tagsToRun);
+
+// REMOTE_HOST - Where to find the selenium server/appium process?[localhost, remote DNSname/IP]
+var webdriverHost = process.env.REMOTE_HOST || 'localhost'
+console.log("webdriverHost => " + webdriverHost);
+
+// WD_PATH - Path for selenium server/appium process?[/, /wd/hub]
+var webdriverPath = process.env.WD_PATH || '/wd/hub'
+console.log("webdriverPath => " + webdriverPath);
+
 const appConfig = getConfigFor(applicationName, environment);
-// console.log("APPCONFIG => " + JSON.stringify(appConfig));
+console.log("APPCONFIG => " + JSON.stringify(appConfig));
+
 
 exports.config = {
 
@@ -21,8 +49,8 @@ exports.config = {
   runner: 'local',
   //fg
   // Override default path ('/wd/hub') for chromedriver service.
-  path: '/wd/hub',
-  hostname: process.env.REMOTE_HOST || 'localhost',
+  path: webdriverPath,
+  hostname: webdriverHost,
   port: 4444,
   //
   // ==================
@@ -34,7 +62,7 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: [
-    './features/**/*.feature'
+    specsPath,
   ],
   // Patterns to exclude.
   exclude: [
@@ -56,7 +84,7 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 10,
+  maxInstances: 1,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -82,7 +110,7 @@ exports.config = {
   //   //   // legacy: true // used for firefox <= 55
   //   // },
   // }],
-  capabilities: getCapabilitiesFor(process.env.BROWSER || 'chrome'),
+  capabilities: getCapabilitiesFor(browserName),
   //
   // ===================
   // Test Configurations
@@ -137,7 +165,7 @@ exports.config = {
   //   "--disable-gpu"
   // ],
 
-  services: process.env.REMOTE_HOST ? [] : ['selenium-standalone'],
+  services: (webdriverHost === 'localhost' ? ['selenium-standalone']: []),
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
@@ -179,7 +207,7 @@ exports.config = {
     source: true,       // <boolean> hide source uris
     profile: [],        // <string[]> (name) specify the profile to use
     strict: false,      // <boolean> fail if there are any undefined or pending steps
-    tagExpression: '',  // <string> (expression) only execute the features or scenarios with tags matching the expression
+    tagExpression: tagsToRun,  // <string> (expression) only execute the features or scenarios with tags matching the expression
     timeout: 60000,     // <number> timeout for step definitions
     ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
   },

@@ -1,3 +1,4 @@
+@Search
 Feature: Duck Duck Go Search
 
 Scenario: Search for cucumbers
